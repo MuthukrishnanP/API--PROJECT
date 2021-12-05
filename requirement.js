@@ -31,3 +31,8 @@
 //-> to get all publications
 //-> to get specific publication
 //-> to get a list of publication based on book
+
+//Post Request
+//-> Add new Books
+//->Add new Author
+//->Add new publications

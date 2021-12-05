@@ -1,8 +1,11 @@
 const express = require ("express");
-
+//Database
 const database = require("./database");
+var bodyParser = require("body-parser");
 // Initialize express
 const booky = express();
+booky.use(bodyParser.urlencoded({extended: true}));
+booky.use(bodyParser.json());
 //Get All Books
 /*
 Route       /
@@ -149,5 +152,44 @@ booky.get("/publications/:isbn",(req,res)=>{
     });
   }
   return res.json({publications:database.publication})
+});
+//Add New Books
+/*
+Route       /book/new
+Description Add new book
+Access      Public
+Parameter   NONE
+Methods     POST
+*/
+booky.post("/book/new",(req,res) =>{
+  const newBook = req.body;
+  database.books.push(newBook)
+  return res.json({updatedBooks: database.books});
+});
+//Add New Author
+/*
+Route       /author/new
+Description Add new author
+Access      Public
+Parameter   NONE
+Methods     POST
+*/
+booky.post("/author/new",(req,res) =>{
+  const newAuthor = req.body;
+  database.author.push(newAuthor)
+  return res.json({updatedAuthor: database.author});
+});
+//Add New Publication
+/*
+Route       /publications/new
+Description Add new publication
+Access      Public
+Parameter   NONE
+Methods     POST
+*/
+booky.post("/publication/new",(req,res) =>{
+  const newPublication = req.body;
+  database.publication.push(newPublication)
+  return res.json({updatedPublication: database.publication});
 });
 booky.listen(3000,() => console.log("Server is up and running"));
